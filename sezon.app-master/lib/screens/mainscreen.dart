@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen>
 
 
   List<Widget> listViews = <Widget>[];
-  int _current = 0;
+
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
   List<String> areaListData = <String>[
@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen>
     });
     super.initState();
   }
-
+  int _current = 0;
   void addAllListData() {
     const int count = 6;
     listViews.clear();
