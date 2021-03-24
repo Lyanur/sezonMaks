@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:app_sezon/models/akciimodel.dart';
 import 'package:app_sezon/ui_view/akcii_karusel.dart';
+import 'package:app_sezon/ui_view/akcii_karusel_novinki.dart';
 import 'package:app_sezon/ui_view/bonuscard.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import '../ui_view/new_product_slider.dart';
-
 
 import '../main.dart';
 import '../ui_view/area_list_view.dart';
@@ -37,7 +35,6 @@ class _MainScreenState extends State<MainScreen>
 
 
   List<Widget> listViews = <Widget>[];
-
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
   List<String> areaListData = <String>[
@@ -75,6 +72,7 @@ class _MainScreenState extends State<MainScreen>
     });
     super.initState();
   }
+  final
   int _current = 0;
   void addAllListData() {
     const int count = 6;
@@ -90,7 +88,7 @@ class _MainScreenState extends State<MainScreen>
     // );
 
     listViews.add(
-      SizedBox(height: 32,)
+        SizedBox(height: 32,)
     );
     //
     // listViews.add(
@@ -170,46 +168,35 @@ class _MainScreenState extends State<MainScreen>
     );
 
     listViews.add(
-        // AkciiSuperKarusel(
-        //   animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        //       parent: animationController,
-        //       curve: Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        //   animationController: animationController,
-        //   areaListData: novinka,
-        // )
-      //Maks S. 22.03.21 Widget for slider, for new product
-      Column(children: <Widget>[
-        CarouselSlider(
-          items: imageSliders,
-          options: CarouselOptions(
-              autoPlay: false,
-              enlargeCenterPage: true,
-              aspectRatio: 2.0,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _current = index;
-                });
-              }
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: imgList.map((item) {
-            int index = imgList.indexOf(item);
-            return Container(
-              width: 8.0,
-              height: 8.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _current == index
-                    ? Color.fromRGBO(0, 0, 0, 0.9)
-                    : Color.fromRGBO(0, 0, 0, 0.4),
-              ),
-            );
-          }).toList(),
-        ),
-      ]
+        AkciiSuperKaruselNew(
+          animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+              parent: animationController,
+              curve: Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
+          animationController: animationController,
+          areaListData: novinka,
+
+
+        )
+    );
+
+    listViews.add(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: novinka.map((a) {
+
+          int index = novinka.indexOf(a);
+          return Container(
+            width: 8.0,
+            height: 8.0,
+            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: _current == index
+                  ? Color.fromRGBO(0, 10, 191, 0.9)
+                  : Color.fromRGBO(0, 0, 0, 0.4),
+            ),
+          );
+        }).toList(),
       ),
     );
 
@@ -224,7 +211,6 @@ class _MainScreenState extends State<MainScreen>
         animationController: animationController,
       ),
     );
-
 
     listViews.add(
         AkciiSuperKarusel(
@@ -344,7 +330,7 @@ class _MainScreenState extends State<MainScreen>
             controller: scrollController,
             padding: EdgeInsets.only(
               top: //AppBar().preferredSize.height +
-                  MediaQuery.of(context).padding.top +
+              MediaQuery.of(context).padding.top +
                   24+32,
               bottom: 62 + MediaQuery.of(context).padding.bottom,
             ),
